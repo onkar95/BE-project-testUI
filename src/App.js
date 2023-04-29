@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
+import Test from './component/Test';
 
 
 function App() {
   return (
     <div>
+      <Test />
       <Router>
 
         <Routes>
