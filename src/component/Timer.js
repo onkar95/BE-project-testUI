@@ -16,7 +16,7 @@ function Timer() {
 
     return (
         <div className="timer-container">
-            <h1 className="timer-heading">Countdown Timer</h1>
+            <h1 className="timer-heading">Time Left:</h1>
             <h2 className="timer-display">{`${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`}</h2>
         </div>
     );

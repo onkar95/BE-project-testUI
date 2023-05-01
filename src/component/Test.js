@@ -5,7 +5,7 @@ import './test.css'
 import TestInfo from './TestInfo';
 const Test = () => {
     const [answersTemp, setAnswersTemp] = useState(new Array(questions.length).fill(null));
-    const [answers, setAnswers] = useState(new Array(questions.length).fill(null));
+    const [answers, setAnswers] = useState();
     const [currentQuestion, setcurrentQuestion] = useState(1)
 
 
@@ -14,6 +14,9 @@ const Test = () => {
         if (savedAnswers) {
             const ans = savedAnswers.split(',')
             setAnswersTemp(ans)
+            setAnswers(ans)
+            console.log(answersTemp)
+            console.log(answers)
         }
     }, [])
 
@@ -25,8 +28,17 @@ const Test = () => {
     }
     const handelSave = () => {
         const newAnswers = [...answersTemp];
-        setAnswers(newAnswers);
-        localStorage.setItem('answers', newAnswers);
+        let finalAns = []
+        newAnswers.forEach(element => {
+            if (element !== '' && element !== null) {
+                finalAns.push(element)
+            } else {
+                finalAns.push("null")
+            }
+        });
+        console.log(finalAns)
+        localStorage.setItem('answers', finalAns);
+        setAnswers(finalAns);
     }
     const handelNext = (index) => {
         if (currentQuestion < questions.length) setcurrentQuestion(currentQuestion + 1)
@@ -39,19 +51,18 @@ const Test = () => {
     return (
         <div className='test_container' >
             <div className='questions_div' >
-
-
                 {questions.slice(currentQuestion - 1, currentQuestion).map((question, index) => (
                     <div key={index} className="question" >
+
+                        <h3> {currentQuestion}.{question.quest}</h3>
                         <div key={index} className="options" >
-                            <h3>{question.quest}</h3>
                             <label>
                                 <input
                                     type="radio"
                                     name={`ans${index}`}
                                     value={question.A}
-                                    checked={answersTemp[currentQuestion - 1] === question.A}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, question.A)}
+                                    checked={answersTemp[currentQuestion - 1] === "A"}
+                                    onChange={() => handelSaveTemp(currentQuestion - 1, "A")}
                                 />
                                 {question.A}
                             </label>
@@ -60,8 +71,8 @@ const Test = () => {
                                     type="radio"
                                     name={`ans${index}`}
                                     value={question.B}
-                                    checked={answersTemp[currentQuestion - 1] === question.B}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, question.B)}
+                                    checked={answersTemp[currentQuestion - 1] === "B"}
+                                    onChange={() => handelSaveTemp(currentQuestion - 1, "B")}
                                 />
                                 {question.B}
                             </label>
@@ -70,8 +81,8 @@ const Test = () => {
                                     type="radio"
                                     name={`ans${index}`}
                                     value={question.C}
-                                    checked={answersTemp[currentQuestion - 1] === question.C}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, question.C)}
+                                    checked={answersTemp[currentQuestion - 1] === "C"}
+                                    onChange={() => handelSaveTemp(currentQuestion - 1, "C")}
                                 />
                                 {question.C}
                             </label>
@@ -80,26 +91,32 @@ const Test = () => {
                                     type="radio"
                                     name={`ans${index}`}
                                     value={question.D}
-                                    checked={answersTemp[currentQuestion - 1] === question.D}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, question.D)}
+                                    checked={answersTemp[currentQuestion - 1] === "D"}
+                                    onChange={() => handelSaveTemp(currentQuestion - 1, "D")}
                                 />
                                 {question.D}
                             </label>
                         </div>
-                        <div>
-                            <button disabled={currentQuestion - 1 === 0} onClick={() => handelPrev()}>prev</button>
-                            <button disabled={answersTemp[currentQuestion - 1] === null} onClick={() => handelSave(currentQuestion - 1)}> save </button>
-                            <button disabled={currentQuestion === questions.length} onClick={() => handelNext(index)}>  next</button>
-                        </div>
                     </div>
                 ))}
-                <button onClick={() => console.log(answers)}>Submit</button>
+                <div className='question_buttons' >
+                    <div>
+                        <button className='btn prev_butn' disabled={currentQuestion - 1 === 0} onClick={() => handelPrev()}>prev</button>
+                        <button className='btn save_butn' disabled={answersTemp[currentQuestion - 1] === 'null'} onClick={() => handelSave(currentQuestion - 1)}> save </button>
+                        <button className='btn next_butn' disabled={currentQuestion === questions.length} onClick={() => handelNext()}>  next</button>
+                    </div>
+                    <div>
+                        <button className='btn submit_btn' onClick={() => console.log(answers)}>Submit</button>
+                    </div>
+                </div>
             </div>
             <div className='test_right'>
-                <TestInfo questions={questions}
+                <Timer />
+                <TestInfo
+                    answers={answers}
+                    setAnswers={setAnswers}
                     currentQuestion={currentQuestion}
                     setcurrentQuestion={setcurrentQuestion} />
-                <Timer />
             </div>
         </div>
     )
