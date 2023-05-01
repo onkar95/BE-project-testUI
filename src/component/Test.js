@@ -1,25 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { questions } from '../data/questions'
 
 const Test = () => {
+    const [answersTemp, setAnswersTemp] = useState(new Array(questions.length).fill(null));
     const [answers, setAnswers] = useState(new Array(questions.length).fill(null));
     const [currentQuestion, setcurrentQuestion] = useState(1)
-    const [currentQuestionAnswer, setCurrentQuestionAnswer] = useState('')
+    const [Disable, setDisable] = useState(false)
 
-    const handleAnswerChange = (value) => {
-        setCurrentQuestionAnswer(value)
-    };
+    useEffect(() => {
 
-    const handelSaveAndNext = (index) => {
-        console.log(currentQuestionAnswer)
-        const newAnswers = [...answers];
-        newAnswers[index] = currentQuestionAnswer;
+    }, [])
+
+
+    useEffect(() => {
+        const savedAnswers = localStorage.getItem('answers')
+        if (savedAnswers) {
+            const ans = savedAnswers.split(',')
+            setAnswersTemp(ans)
+        }
+    }, [])
+
+
+
+
+    const handelSaveTemp = (index, value) => {
+        const newAnswers = [...answersTemp];
+        newAnswers[index] = value;
+        setAnswersTemp(newAnswers);
+    }
+    const handelSave = () => {
+        const newAnswers = [...answersTemp];
         setAnswers(newAnswers);
-        console.log(answers)
-        setCurrentQuestionAnswer('')
+        localStorage.setItem('answers', newAnswers);
+    }
+    const handelNext = (index) => {
         if (currentQuestion < questions.length) setcurrentQuestion(currentQuestion + 1)
     }
+
+    console.log(answersTemp, "answersTemp")
+    console.log(answers, "answers")
     const handelPrev = () => {
+        console.log("answers", answers)
         if (currentQuestion >= 2) setcurrentQuestion(currentQuestion - 1)
     }
 
@@ -34,8 +55,8 @@ const Test = () => {
                                 type="radio"
                                 name={`ans${index}`}
                                 value={question.A}
-                                checked={answers[index] === question.A}
-                                onChange={() => handleAnswerChange(index, question.A)}
+                                checked={answersTemp[currentQuestion - 1] === question.A}
+                                onChange={() => handelSaveTemp(currentQuestion - 1, question.A)}
                             />
                             {question.A}
                         </label>
@@ -44,8 +65,8 @@ const Test = () => {
                                 type="radio"
                                 name={`ans${index}`}
                                 value={question.B}
-                                checked={answers[index] === question.B}
-                                onChange={() => handleAnswerChange(index, question.B)}
+                                checked={answersTemp[currentQuestion - 1] === question.B}
+                                onChange={() => handelSaveTemp(currentQuestion - 1, question.B)}
                             />
                             {question.B}
                         </label>
@@ -54,8 +75,8 @@ const Test = () => {
                                 type="radio"
                                 name={`ans${index}`}
                                 value={question.C}
-                                checked={answers[index] === question.C}
-                                onChange={() => handleAnswerChange(index, question.C)}
+                                checked={answersTemp[currentQuestion - 1] === question.C}
+                                onChange={() => handelSaveTemp(currentQuestion - 1, question.C)}
                             />
                             {question.C}
                         </label>
@@ -64,15 +85,16 @@ const Test = () => {
                                 type="radio"
                                 name={`ans${index}`}
                                 value={question.D}
-                                checked={answers[index] === question.D}
-                                onChange={() => handleAnswerChange(index, question.D)}
+                                checked={answersTemp[currentQuestion - 1] === question.D}
+                                onChange={() => handelSaveTemp(currentQuestion - 1, question.D)}
                             />
                             {question.D}
                         </label>
                     </div>
                     <div>
-                        <button onClick={() => handelPrev()}>prev</button>
-                        <button onClick={() => handelSaveAndNext(index)}> save & next</button>
+                        <button disabled={disabled} onClick={() => handelPrev()}>prev</button>
+                        <button onClick={() => handelSave(currentQuestion - 1)}> save </button>
+                        <button onClick={() => handelNext(index)}>  next</button>
                     </div>
                 </div>
             ))}
