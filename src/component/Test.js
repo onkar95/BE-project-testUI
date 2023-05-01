@@ -7,10 +7,6 @@ const Test = () => {
     const [currentQuestion, setcurrentQuestion] = useState(1)
     const [Disable, setDisable] = useState(false)
 
-    useEffect(() => {
-
-    }, [])
-
 
     useEffect(() => {
         const savedAnswers = localStorage.getItem('answers')
@@ -19,8 +15,6 @@ const Test = () => {
             setAnswersTemp(ans)
         }
     }, [])
-
-
 
 
     const handelSaveTemp = (index, value) => {
@@ -37,10 +31,7 @@ const Test = () => {
         if (currentQuestion < questions.length) setcurrentQuestion(currentQuestion + 1)
     }
 
-    console.log(answersTemp, "answersTemp")
-    console.log(answers, "answers")
     const handelPrev = () => {
-        console.log("answers", answers)
         if (currentQuestion >= 2) setcurrentQuestion(currentQuestion - 1)
     }
 
@@ -92,9 +83,9 @@ const Test = () => {
                         </label>
                     </div>
                     <div>
-                        <button disabled={disabled} onClick={() => handelPrev()}>prev</button>
-                        <button onClick={() => handelSave(currentQuestion - 1)}> save </button>
-                        <button onClick={() => handelNext(index)}>  next</button>
+                        <button disabled={currentQuestion - 1 === 0} onClick={() => handelPrev()}>prev</button>
+                        <button disabled={answersTemp[currentQuestion - 1] === null} onClick={() => handelSave(currentQuestion - 1)}> save </button>
+                        <button disabled={currentQuestion === questions.length} onClick={() => handelNext(index)}>  next</button>
                     </div>
                 </div>
             ))}
