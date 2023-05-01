@@ -11,6 +11,12 @@ const Test = () => {
 
     useEffect(() => {
         const savedAnswers = localStorage.getItem('answers')
+        const lastActiveQuestion = localStorage.getItem('currentQuestion')
+        console.log(lastActiveQuestion)
+        if (lastActiveQuestion) {
+            setcurrentQuestion(lastActiveQuestion)
+        }
+        console.log(currentQuestion)
         if (savedAnswers) {
             const ans = savedAnswers.split(',')
             setAnswersTemp(ans)
@@ -19,6 +25,10 @@ const Test = () => {
             console.log(answers)
         }
     }, [])
+
+    useEffect(() => {
+        if (currentQuestion !== 1) localStorage.setItem('currentQuestion', currentQuestion)
+    }, [currentQuestion])
 
 
     const handelSaveTemp = (index, value) => {
