@@ -3,19 +3,7 @@ import React, { useEffect } from 'react';
 import { questions } from '../data/questions';
 import './test.css'
 
-const TestInfo = ({ currentQuestion, setcurrentQuestion, answers, setAnswers }) => {
-    // const handelSetQuestion = (val) => {
-    //     if (val > visited || visited < currentQuestion) return alert('save the current question')
-    //     setcurrentQuestion(val)
-    // }
-    // useEffect(() => {
-    //     const savedAnswers = localStorage.getItem('answers')
-    //     if (savedAnswers) {
-    //         const ans = savedAnswers.split(',')
-    //         // console.log(ans)
-    //     }
-    // }, [answers])
-    console.log(answers)
+const TestInfo = ({ currentQuestion, setcurrentQuestion, answers }) => {
 
     return (
         <div className="question-list">

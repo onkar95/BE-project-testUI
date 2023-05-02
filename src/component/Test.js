@@ -125,7 +125,6 @@ const Test = () => {
                 <Timer />
                 <TestInfo
                     answers={answers}
-                    setAnswers={setAnswers}
                     currentQuestion={currentQuestion}
                     setcurrentQuestion={setcurrentQuestion} />
             </div>
