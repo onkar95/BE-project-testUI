@@ -6,28 +6,26 @@ import TestInfo from './TestInfo';
 const Test = () => {
     const [answersTemp, setAnswersTemp] = useState(new Array(questions.length).fill(null));
     const [answers, setAnswers] = useState();
-    const [currentQuestion, setcurrentQuestion] = useState(1)
+    const [currentQuestion, setcurrentQuestion] = useState()
 
 
     useEffect(() => {
         const savedAnswers = localStorage.getItem('answers')
         const lastActiveQuestion = localStorage.getItem('currentQuestion')
-        console.log(lastActiveQuestion)
         if (lastActiveQuestion) {
-            setcurrentQuestion(lastActiveQuestion)
+            setcurrentQuestion(Number(lastActiveQuestion))
+        } else {
+            setcurrentQuestion(1)
         }
-        console.log(currentQuestion)
         if (savedAnswers) {
             const ans = savedAnswers.split(',')
             setAnswersTemp(ans)
             setAnswers(ans)
-            console.log(answersTemp)
-            console.log(answers)
         }
     }, [])
 
     useEffect(() => {
-        if (currentQuestion !== 1) localStorage.setItem('currentQuestion', currentQuestion)
+        if (currentQuestion !== undefined) localStorage.setItem('currentQuestion', currentQuestion)
     }, [currentQuestion])
 
 
@@ -61,54 +59,57 @@ const Test = () => {
     return (
         <div className='test_container' >
             <div className='questions_div' >
-                {questions.slice(currentQuestion - 1, currentQuestion).map((question, index) => (
-                    <div key={index} className="question" >
+                {
+                    questions &&
+                    currentQuestion !== undefined &&
+                    questions?.slice(currentQuestion - 1, currentQuestion).map((question, index) => (
+                        <div key={index} className="question" >
 
-                        <h3> {currentQuestion}.{question.quest}</h3>
-                        <div key={index} className="options" >
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`ans${index}`}
-                                    value={question.A}
-                                    checked={answersTemp[currentQuestion - 1] === "A"}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, "A")}
-                                />
-                                {question.A}
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`ans${index}`}
-                                    value={question.B}
-                                    checked={answersTemp[currentQuestion - 1] === "B"}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, "B")}
-                                />
-                                {question.B}
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`ans${index}`}
-                                    value={question.C}
-                                    checked={answersTemp[currentQuestion - 1] === "C"}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, "C")}
-                                />
-                                {question.C}
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`ans${index}`}
-                                    value={question.D}
-                                    checked={answersTemp[currentQuestion - 1] === "D"}
-                                    onChange={() => handelSaveTemp(currentQuestion - 1, "D")}
-                                />
-                                {question.D}
-                            </label>
+                            <h3> {currentQuestion}. {question.quest}?</h3>
+                            <div key={index} className="options" >
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`ans${index}`}
+                                        value={question.A}
+                                        checked={answersTemp[currentQuestion - 1] === "A"}
+                                        onChange={() => handelSaveTemp(currentQuestion - 1, "A")}
+                                    />
+                                    {question.A}
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`ans${index}`}
+                                        value={question.B}
+                                        checked={answersTemp[currentQuestion - 1] === "B"}
+                                        onChange={() => handelSaveTemp(currentQuestion - 1, "B")}
+                                    />
+                                    {question.B}
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`ans${index}`}
+                                        value={question.C}
+                                        checked={answersTemp[currentQuestion - 1] === "C"}
+                                        onChange={() => handelSaveTemp(currentQuestion - 1, "C")}
+                                    />
+                                    {question.C}
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name={`ans${index}`}
+                                        value={question.D}
+                                        checked={answersTemp[currentQuestion - 1] === "D"}
+                                        onChange={() => handelSaveTemp(currentQuestion - 1, "D")}
+                                    />
+                                    {question.D}
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
                 <div className='question_buttons' >
                     <div>
                         <button className='btn prev_butn' disabled={currentQuestion - 1 === 0} onClick={() => handelPrev()}>prev</button>
