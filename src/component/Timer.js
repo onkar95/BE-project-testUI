@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './timer.css'
-function Timer() {
-    const [seconds, setSeconds] = useState(60 * 60);
+function Timer({ seconds, setSeconds }) {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setSeconds((prevSeconds) => prevSeconds - 1);
+            if (seconds > 0) setSeconds((prevSeconds) => prevSeconds - 1);
         }, 1000);
 
         return () => clearInterval(intervalId);

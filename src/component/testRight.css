@@ -1,0 +1,76 @@
+.test_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    height: 100vh;
+    border-left: 2px solid black;
+}
+
+.video_component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video {
+    height: 220px;
+    width: 250px;
+    padding: 0;
+    margin: 0;
+}
+
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #f5f5f5; */
+    height: 30px;
+    padding: 2px;
+    margin-top: 20px;
+}
+
+.timer-heading {
+    font-size: 2rem;
+}
+
+.timer-display {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+}
+
+/* Base styles for the button */
+.submit_button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: #ffffff;
+    width: 100px;
+}
+
+/* Hover styles */
+.submit_button:hover {
+    background-color: #45a049;
+}
+
+/* Active/Pressed styles */
+.submit_button:active {
+    background-color: #3c903e;
+}
+
+/* Disabled styles */
+.submit_button:disabled {
+    background-color: #999999;
+    cursor: not-allowed;
+}
+
+/* Customization and additional styles */
+/* Add any custom styles or modifications here */

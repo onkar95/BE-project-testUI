@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.mca-test-instructions-container {
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+.mca-test-instructions-title {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.mca-test-instructions-list {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.mca-test-instructions-item {
+    margin-bottom: 5px;
+}
+
+.mca-test-instructions-good-luck {
+    font-style: italic;
+    font-size: 1.2em;
+}

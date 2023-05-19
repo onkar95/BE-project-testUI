@@ -3,11 +3,15 @@ import { questions } from '../data/questions'
 import Timer from './Timer';
 import './test.css'
 import TestInfo from './TestInfo';
+import VideoStreaming from './VideoStreaming';
+import { useNavigate } from 'react-router-dom';
 const Test = () => {
     const [answersTemp, setAnswersTemp] = useState(new Array(questions.length).fill(null));
     const [answers, setAnswers] = useState();
     const [currentQuestion, setcurrentQuestion] = useState()
+    let [seconds, setSeconds] = useState(60 * 60);
 
+    const navigate = useNavigate()
 
     useEffect(() => {
         const savedAnswers = localStorage.getItem('answers')
@@ -44,7 +48,6 @@ const Test = () => {
                 finalAns.push("null")
             }
         });
-        console.log(finalAns)
         localStorage.setItem('answers', finalAns);
         setAnswers(finalAns);
     }
@@ -54,6 +57,17 @@ const Test = () => {
 
     const handelPrev = () => {
         if (currentQuestion >= 2) setcurrentQuestion(currentQuestion - 1)
+    }
+
+    const handelSubmit = () => {
+        const c = window.confirm('are you sure')
+        console.log(c)
+        if (c && seconds / 60 <= 45) {
+            handelSave()
+            navigate('/thank-you')
+        } else {
+            alert("you must attend the test for at least 15 minutes")
+        }
     }
 
     return (
@@ -116,17 +130,19 @@ const Test = () => {
                         <button className='btn save_butn' disabled={answersTemp[currentQuestion - 1] === 'null'} onClick={() => handelSave(currentQuestion - 1)}> save </button>
                         <button className='btn next_butn' disabled={currentQuestion === questions.length} onClick={() => handelNext()}>  next</button>
                     </div>
-                    <div>
+                    {/* <div>
                         <button className='btn submit_btn' onClick={() => console.log(answers)}>Submit</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className='test_right'>
-                <Timer />
+                {/* <VideoStreaming /> */}
+                <Timer seconds={seconds} setSeconds={setSeconds} />
                 <TestInfo
                     answers={answers}
                     currentQuestion={currentQuestion}
                     setcurrentQuestion={setcurrentQuestion} />
+                <button onClick={() => handelSubmit()} className='submit_button'>Submit </button>
             </div>
         </div>
     )

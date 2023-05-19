@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { questions } from '../data/questions';
 import './test.css'
+import './testinfo.css'
 
 const TestInfo = ({ currentQuestion, setcurrentQuestion, answers }) => {
 
