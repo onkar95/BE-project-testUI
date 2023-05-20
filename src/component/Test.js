@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { questions } from '../data/questions'
 import Timer from './Timer';
 import './test.css'
 import TestInfo from './TestInfo';
 import VideoStreaming from './VideoStreaming';
 import { useNavigate } from 'react-router-dom';
+import { TestContest } from '../context/TestContext';
 const Test = () => {
     const [answersTemp, setAnswersTemp] = useState(new Array(questions.length).fill(null));
     const [answers, setAnswers] = useState();
     const [currentQuestion, setcurrentQuestion] = useState()
-    let [seconds, setSeconds] = useState(60 * 60);
+    let { seconds, setSeconds } = useContext(TestContest)
     console.log(answers)
     const navigate = useNavigate()
 
@@ -69,6 +70,15 @@ const Test = () => {
             alert("you must attend the test for at least 15 minutes")
         }
     }
+
+    useEffect(() => {
+        if (seconds === 0) {
+            alert("times up")
+            handelSave()
+            navigate('/thank-you')
+        }
+    }, [seconds])
+
 
     return (
         <div className='test_container' >
@@ -137,7 +147,7 @@ const Test = () => {
             </div>
             <div className='test_right'>
                 {/* <VideoStreaming /> */}
-                <Timer seconds={seconds} setSeconds={setSeconds} />
+                <Timer />
                 <TestInfo
                     answers={answers}
                     currentQuestion={currentQuestion}

@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react';
-function Timer({ seconds, setSeconds }) {
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (seconds > 0) setSeconds((prevSeconds) => prevSeconds - 1);
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    }, []);
+import React, { useState, useEffect, useContext } from 'react';
+import { TestContest } from '../context/TestContext';
+function Timer() {
+    let { seconds, setSeconds } = useContext(TestContest)
 
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
