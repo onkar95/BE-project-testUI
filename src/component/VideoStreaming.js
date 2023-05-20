@@ -21,7 +21,7 @@ const VideoStreaming = () => {
         getVideoStream();
     }, []);
 
-    console.log("webcamRef", webcamRef)
+    // console.log("webcamRef", webcamRef)
     return (
         <div className='video_component'>
 

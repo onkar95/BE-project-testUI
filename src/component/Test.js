@@ -10,7 +10,7 @@ const Test = () => {
     const [answers, setAnswers] = useState();
     const [currentQuestion, setcurrentQuestion] = useState()
     let [seconds, setSeconds] = useState(60 * 60);
-
+    console.log(answers)
     const navigate = useNavigate()
 
     useEffect(() => {
