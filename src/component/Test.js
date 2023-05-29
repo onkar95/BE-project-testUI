@@ -10,7 +10,7 @@ const Test = () => {
     const [answersTemp, setAnswersTemp] = useState(new Array(questions.length).fill(null));
     const [answers, setAnswers] = useState();
     const [currentQuestion, setcurrentQuestion] = useState()
-    let { seconds, setSeconds } = useContext(TestContest)
+    let { seconds, testStatus, setTestStatus } = useContext(TestContest)
 
     console.log(answers)
     const navigate = useNavigate()
@@ -51,7 +51,10 @@ const Test = () => {
             }
         });
         localStorage.setItem('answers', finalAns);
+        setTestStatus("submitted")
         localStorage.setItem('testStatus', "submitted");
+        localStorage.removeItem("currentQuestion")
+        localStorage.removeItem("remainingTime")
         setAnswers(finalAns);
     }
     const handelNext = (index) => {
@@ -81,7 +84,9 @@ const Test = () => {
         }
     }, [seconds])
 
-
+    if (testStatus === "submitted") {
+        return navigate('/thank-you')
+    }
     return (
         <div className='test_container' >
             <div className='questions_div' >

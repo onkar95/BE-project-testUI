@@ -7,21 +7,25 @@ import './testhome.css'
 
 const TestHome = () => {
     const navigate = useNavigate()
-    const { testStatus, setTestStatus } = useContext(TestContest)
+    const { seconds, setSeconds, testStatus, setTestStatus } = useContext(TestContest)
     const handelclick = () => {
         setTestStatus("started")
         localStorage.setItem("testStatus", "started")
+        setSeconds(60 * 60)
+        localStorage.setItem('remainingTime', 60 * 60)
         navigate('/test')
     }
     console.log(testStatus)
     if (testStatus === "started") {
         return navigate('/test')
+    } else if (testStatus === "submitted") {
+        return navigate('/thank-you')
     }
     return (
         <div>
 
             <Instructions />
-            <button onClick={handelclick} className='button'>Take Test</button>
+            <button onClick={() => handelclick()} className='button'>Take Test</button>
 
         </div>
     )
