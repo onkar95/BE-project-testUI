@@ -8,17 +8,15 @@ import { TestDataProvider } from './context/TestContext';
 
 function App() {
   return (
-    <div>
-      <TestDataProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<TestHome />} />
-            <Route path="/thank-you" element={<ThankYou />} />
-            <Route path="/test" element={<Test />} />
-          </Routes>
-        </Router>
-      </TestDataProvider>
-    </div >
+    <TestDataProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<TestHome />} />
+          <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </Router>
+    </TestDataProvider>
   );
 }
 
