@@ -11,6 +11,7 @@ const Test = () => {
     const [answers, setAnswers] = useState();
     const [currentQuestion, setcurrentQuestion] = useState()
     let { seconds, setSeconds } = useContext(TestContest)
+
     console.log(answers)
     const navigate = useNavigate()
 
@@ -50,6 +51,7 @@ const Test = () => {
             }
         });
         localStorage.setItem('answers', finalAns);
+        localStorage.setItem('testStatus', "submitted");
         setAnswers(finalAns);
     }
     const handelNext = (index) => {

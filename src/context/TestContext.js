@@ -4,8 +4,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const TestContest = createContext(null)
 
 export const TestDataProvider = ({ children }) => {
-
-    let [seconds, setSeconds] = useState(60 * 60);
+    let storedSeconds = localStorage.getItem("remainingTime")
+    let status = localStorage.getItem("testStatus")
+    let [seconds, setSeconds] = useState(storedSeconds || 60 * 60);
+    let [testStatus, setTestStatus] = useState(status || '');
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -23,12 +25,14 @@ export const TestDataProvider = ({ children }) => {
         return () => {
             clearInterval(intervalId);
         };
+
     }, []);
 
 
     return (
         <TestContest.Provider value={{
-            seconds, setSeconds
+            seconds, setSeconds,
+            testStatus, setTestStatus
         }}>
             {children}
         </TestContest.Provider>
