@@ -66,13 +66,11 @@ const Test = () => {
     }
 
     const handelSubmit = () => {
-        const c = window.confirm('are you sure')
+        const c = window.confirm('you are about to submit the test')
         console.log(c)
-        if (c && seconds / 60 <= 45) {
+        if (c) {
             handelSave()
             navigate('/thank-you')
-        } else {
-            alert("you must attend the test for at least 15 minutes")
         }
     }
 

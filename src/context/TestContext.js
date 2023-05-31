@@ -6,7 +6,7 @@ export const TestContest = createContext(null)
 export const TestDataProvider = ({ children }) => {
     let storedSeconds = localStorage.getItem("remainingTime")
     let status = localStorage.getItem("testStatus")
-    let [seconds, setSeconds] = useState(storedSeconds || 60 * 60);
+    let [seconds, setSeconds] = useState(storedSeconds || 15 * 60);
     let [testStatus, setTestStatus] = useState(status || '');
 
     useEffect(() => {
