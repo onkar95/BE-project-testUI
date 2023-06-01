@@ -51,10 +51,7 @@ const Test = () => {
             }
         });
         localStorage.setItem('answers', finalAns);
-        setTestStatus("submitted")
-        localStorage.setItem('testStatus', "submitted");
-        localStorage.removeItem("currentQuestion")
-        localStorage.removeItem("remainingTime")
+
         setAnswers(finalAns);
     }
     const handelNext = (index) => {
@@ -70,6 +67,10 @@ const Test = () => {
         console.log(c)
         if (c) {
             handelSave()
+            setTestStatus("submitted")
+            localStorage.setItem('testStatus', "submitted");
+            localStorage.removeItem("currentQuestion")
+            localStorage.removeItem("remainingTime")
             navigate('/thank-you')
         }
     }
@@ -78,6 +79,10 @@ const Test = () => {
         if (seconds === 0) {
             alert("times up")
             handelSave()
+            setTestStatus("submitted")
+            localStorage.setItem('testStatus', "submitted");
+            localStorage.removeItem("currentQuestion")
+            localStorage.removeItem("remainingTime")
             navigate('/thank-you')
         }
     }, [seconds])

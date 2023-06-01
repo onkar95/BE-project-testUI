@@ -11,8 +11,8 @@ const TestHome = () => {
     const handelclick = () => {
         setTestStatus("started")
         localStorage.setItem("testStatus", "started")
-        setSeconds(60 * 60)
-        localStorage.setItem('remainingTime', 60 * 60)
+        setSeconds(15 * 60)
+        localStorage.setItem('remainingTime', 15 * 60)
         navigate('/test')
     }
     console.log(testStatus)
